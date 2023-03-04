@@ -15,8 +15,11 @@ class CreateTbljobtitleTable extends Migration
     {
         Schema::create('tbljobtitle', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('titlecode')->unique();
-            $table->string('titlename')->unique();
+            $table->string('jobtitlecode')->unique();
+            /*
+               job title cannot be unique because the we can have the same jobtile with both fulltime and parttime
+            */
+            $table->string('jobtitlename');                     
             $table->timestamps();
         });
     }

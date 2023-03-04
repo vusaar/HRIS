@@ -14,13 +14,26 @@ class CreateTbldepartmentjobtitleTable extends Migration
     public function up()
     {
         Schema::create('tbldepartmentjobtitle', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('departmentjobtitlecode')->unique();
-            $table->string('departmentcode')->nullable(false);
-            $table->string('jobtitlecode')->nullable(false);
-            $table->string('grade')->nullable(false);
-            $table->string('departmentjobtitlename')->nullable(false);
-            $table->string('reportsto');
+            $table->bigIncrements('id');           
+            $table->unsignedBigInteger('grade_id')->nullable(false);
+            $table->unsignedBigInteger('jobhierarchy_id')->nullable(true);
+            $table->unsignedBigInteger('department_id')->nullable(true);
+            $table->unsignedBigInteger('section_id')->nullable(true);
+            $table->unsignedBigInteger('jobtitle_id')->nullable(false);
+            $table->string('isacademic')->nullable(true);                       
+            $table->string('departmentjobtitlename')->nullable(true);
+            $table->unsignedBigInteger('supervisor');
+
+            $table->foreign('supervisor')->references('id')->on('tbldepartmentjobtitle')->onUpdate('cascade')->onDelete('restrict');
+
+            $table->foreign('department_id')->references('id')->on('tbldepartment')->onUpdate('cascade')->onDelete('restrict');
+
+            $table->foreign('jobtitle_id')->references('id')->on('tbljobtitle')->onUpdate('cascade')->onDelete('restrict');
+
+            $table->foreign('jobhierarchy_id')->references('id')->on('tbljobtitlehierarchy')->onUpdate('cascade')->onDelete('restrict');
+
+            $table->foreign('grade_id')->references('id')->on('tblemployeegrade')->onUpdate('cascade')->onDelete('restrict');
+            
             $table->timestamps();
         });
     }
