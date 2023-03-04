@@ -9,14 +9,15 @@ jobs:
   laravel-tests:
 
     runs-on: self-hosted
+    run:
+  working-directory: ./xampp/htdocs/
 
     steps:
     - uses: actions/checkout@v3
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
     - name: Generate key
       run: php artisan key:generate
+      
     
     
