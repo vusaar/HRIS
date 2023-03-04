@@ -9,8 +9,6 @@ jobs:
   laravel-tests:
 
     runs-on: self-hosted
-    run:
-  working-directory: ./xampp/htdocs/
 
     steps:
     - uses: actions/checkout@v3
