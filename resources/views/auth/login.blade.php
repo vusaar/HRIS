@@ -12,9 +12,7 @@
 
                         <div class="card-body p-3">
                            
-                            <div class="form-group">
                             
-                            </div>
                   <div class="form-group text-center">
                      <span class='text-center'>
                         <span class='btn bg-lime text-white'>YOUR</span>
