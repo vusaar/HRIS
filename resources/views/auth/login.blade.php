@@ -13,9 +13,7 @@
                         <div class="card-body p-3">
                            
                             <div class="form-group">
-                            <span>
-                             <img  src='images/logo.png' style= 'width:50%;padding:2px;display: block;margin-left: auto;margin-right: auto;'/>
-                            </span>
+                            
                             </div>
                   <div class="form-group text-center">
                      <span class='text-center'>
