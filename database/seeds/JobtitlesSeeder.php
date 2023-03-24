@@ -58,6 +58,13 @@ class JobtitlesSeeder extends Seeder
             'jobtitlecode' => 'HRO'
         ]);
 
+
+        Jobtitle::firstOrCreate([
+            'jobtitlename' => 'Salaries Officer',
+            'jobtitlecode' => 'SO'
+        ]);
+
+
         Jobtitle::firstOrCreate([
             'jobtitlename' => 'Salaries Clerk',
             'jobtitlecode' => 'SC'
@@ -72,6 +79,11 @@ class JobtitlesSeeder extends Seeder
         Jobtitle::firstOrCreate([
             'jobtitlename' => 'Network Manager',
             'jobtitlecode' => 'NM'
+        ]);
+
+        Jobtitle::firstOrCreate([
+            'jobtitlename' => 'Network Engineer',
+            'jobtitlecode' => 'NE'
         ]);
 
         Jobtitle::firstOrCreate([
@@ -94,9 +106,6 @@ class JobtitlesSeeder extends Seeder
             'jobtitlename' => 'Support Technician',
             'jobtitlecode' => 'ST'
         ]);
-
-
-       
 
     }
 }

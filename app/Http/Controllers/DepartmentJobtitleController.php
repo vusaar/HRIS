@@ -20,42 +20,43 @@ class DepartmentJobtitleController extends BaseController
 
     public function index(Request $request){
 
-       // dd($request);
+        //dd($request);
 
-        $jobtitle_id = intval($request->input('jobtitle_id'));
-        $department_id = intval($request->input('department_id'));
-        $section_id =  intval($request->input('section_id'));
-        $level_id = intval($request->input('level_id'));
-        $isacademic = intval($request->input('isacademic_id'));
-
+        $jobtitle_id = $request->input('jobtitle_id')!==null?intval($request->input('jobtitle_id')):-1;
+        $department_id = $request->input('department_id')!==null?intval($request->input('department_id')):-1;
+        $section_id =  $request->input('section_id')!==null?intval($request->input('section_id')):-1;
+        $level_id = $request->input('level_id')!==null?intval($request->input('level_id')):-1;
+        $isacademic = $request->input('isacademic_id')!==null?intval($request->input('isacademic_id')):-1;
 
         
 
-      $departmentjobtitles = DepartmentJobtitle::join('tbljobtitle','tbljobtitle.id','=','tbldepartmentjobtitle.jobtitle_id')->orderBy('tbljobtitle.jobtitlename','asc');
+      $departmentjobtitles_result = DepartmentJobtitle::join('tbljobtitle','tbljobtitle.id','=','tbldepartmentjobtitle.jobtitle_id')->orderBy('tbljobtitle.jobtitlename','asc');
 
-        if($jobtitle_id !== null && $jobtitle_id !==-1){
-          $departmentjobtitles = $departmentjobtitles->where('jobtitle_id',$jobtitle_id);
+        if($jobtitle_id !==-1){
+          $departmentjobtitles_result = $departmentjobtitles_result->where('jobtitle_id',$jobtitle_id);
         }
 
-        if($department_id !== null && $department_id !==-1){
-          $departmentjobtitles = $departmentjobtitles->where('department_id',$department_id);
+        if($department_id !==-1){
+          $departmentjobtitles_result = $departmentjobtitles_result->where('department_id',$department_id);
         }
 
-        if($section_id !== null && $section_id !==-1){
-          $departmentjobtitles = $departmentjobtitles->where('section_id',$section_id);
+        if($section_id !==-1){
+          $departmentjobtitles_result = $departmentjobtitles_result->where('section_id',$section_id);
         }
 
-        if($level_id !== null && $level_id !==-1){
+        if($level_id !==-1){
 
-          $departmentjobtitles = $departmentjobtitles->where('jobhierarchy_id',$level_id);
+          $departmentjobtitles_result = $departmentjobtitles_result->where('jobhierarchy_id',$level_id);
         }
 
-        if($isacademic !== null && $isacademic !==-1){
+        if($isacademic !==-1){
 
-          $departmentjobtitles = $departmentjobtitles->where('isacademic',$isacademic);
+          $departmentjobtitles_result = $departmentjobtitles_result->where('isacademic',$isacademic);
         }
 
-        $departmentjobtitles = $departmentjobtitles->get();
+        $departmentjobtitles = $departmentjobtitles_result->get();
+
+        //dd($departmentjobtitles);
 
         $sections  = Section::orderBy('sectionname','asc')->get();
 

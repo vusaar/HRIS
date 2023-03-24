@@ -49,7 +49,6 @@
         <th>Job Title</th>
         <th>Department | Section </th> 
         <th>Level Group</th>
-        <th>Academic/ Non Academic</th>  
         <th>Grade</th>
         <th>Reports To</th>       
         <th>Actions</th>
@@ -76,18 +75,22 @@
            @endif
            
           </td>
-        <td>{{$departmentjobtitle->hierarchylevel->jobtitle_hierarchy}}</td>
-        <td>{{$departmentjobtitle->isacademic}}</td>
+        <td>{{"--"}}</td>
         <td>{{$departmentjobtitle->grade->grade}}</td>
-        <td>{{$departmentjobtitle->supervisor?$departmentjobtitle->supervisor->jobtitle->jobtitlename:'SELF'}}
+        <td>
+
+          @isset($departmentjobtitle->supervisor->jobtitle)
+            {{$departmentjobtitle->supervisor->jobtitle->jobtitlename}}
+          @endisset
         
-        @if($departmentjobtitle->supervisor)
-         @if($departmentjobtitle->supervisor->department!=null)          
+        @isset($departmentjobtitle->supervisor)
+        @isset($departmentjobtitle->supervisor->department)          
            ({{$departmentjobtitle->supervisor->department->departmentname}}) 
           @else   
+            
           ({{$departmentjobtitle->supervisor->section->sectionname}})
-          @endif
-        @endif  
+          @endisset
+        @endisset  
         </td>
         <td>
           <a href="{{url('departmentjobtitle/')}}/{{$departmentjobtitle->id}}" class='text-lime bg-white'><i class="fa fa-pencil-square" style="font-size:14px" ></i></a> | <a href='#' class='text-red bg-white'><i class="fa fa-trash"  style="font-size:14px" aria-hidden="true"></i>
