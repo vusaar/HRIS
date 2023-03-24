@@ -11,44 +11,5 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
-mix.copyDirectory('vendor/tinymce/tinymce', 'public/js/tinymce');
-
-mix.webpackConfig({
-    resolve: {
-        alias: {
-            'circle-progress': 'jquery-circle-progress',
-            // 'core': path.resolve(__dirname, 'node_modules/tabler-ui/dist/assets/js/core.js'),
-            'vector-map': 'jvectormap'
-        }
-    }
-});
-
-
-mix.js('resources/js/tabler.js', 'public/js')
-    .sass('resources/sass/tabler.scss', 'public/css');
-
-mix.autoload({
-    jquery: [ '$', 'jQuery', 'jquery', 'window.jQuery'],
-});
-
-mix.extract([
-    'lodash',
-    'bootstrap',
-    'bootstrap-datepicker',
-    'chart.js',
-    'jquery',
-    'jquery-circle-progress',
-    'jvectormap',
-    'moment',
-    'select2',
-    'selectize',
-    'sparkline',
-    'tablesorter',
-    'vue'
-], 'public/js/vendor.js');
-
-mix.version();
-
-mix.setPublicPath('public');
+mix.react('resources/js/app.js', 'public/js')
+   .sass('resources/sass/app.scss', 'public/css');
