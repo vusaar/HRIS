@@ -6340,7 +6340,8 @@ a.badge-dark.focus {
   position: relative;
   display: block;
   padding: 0.75rem 1.25rem;
-  border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+  background-color: #fff;
+  border: 1px solid rgba(0, 40, 100, 0.12);
 }
 
 .list-group-item:first-child {

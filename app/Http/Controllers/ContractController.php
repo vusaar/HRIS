@@ -3,17 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use App\Contract;
 
 class ContractController extends Controller
 {
     //
-    public function index(){
+    public function index(Request $request){
 
           
-        $contracts  =  Contract::orderBy('contract_name')->get();
-        return view('contract.index', compact('contracts'));
+
+      // if($request->has('query'))
+      //   echo "query not null";
+       
+      //   die();
+      //dd($request);
+      $query = $request->input('query')!==null?trim($request->input('query')):"";
+
+
+      $contract_result = Contract::orderBy('contract_name');
+
+     
+
+      if($query!=""){
+
+        $contract_result  =  $contract_result->where('contract_name','like','%'.$query.'%')->orWhere('contract_type','like','%'.$query.'%');
+
+      }
+
+        $contracts  =  $contract_result->get();
+
+        
+         /*
+            return as json
+         */
+        if($request->has('query')){
+
+          return response()->json([
+            'data' => json_encode($contracts)
+        ], 201);
+        }
+
+        /*
+           return as view
+        */
+        
+        return view('contract.index', compact('contracts'))->withData(json_encode($contracts));
     }
 
     function showUpsertView($id=null){
