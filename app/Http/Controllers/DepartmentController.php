@@ -12,13 +12,36 @@ class DepartmentController extends BaseController
     //
 
 
-    public function index(){
+    public function index(Request $request){
 
-        $departments = Department::orderBy('departmentname', 'asc')->get();
 
-        //dd($sections);
+      $query = $request->input('query')!==null?trim($request->input('query')):"";
 
-        return view('department.index',compact('departments'));
+        $department_results = Department::with('section');
+
+        if($request->has('query')){
+
+          $search = $request->input('query');
+
+          $department_results = $department_results->Wherehas('section',function ($q) use($search){
+               $q->where('sectionname','like','%'.$search.'%');
+          })->orWhere('departmentname','like','%'.$search.'%');
+        }
+
+
+        $departments = $department_results->get();
+        
+         /*
+            return as json
+         */
+        if($request->has('query')){
+
+          return response()->json([
+            'data' => json_encode($departments)
+        ], 201);
+        }
+
+        return view('department.index',compact('departments'))->withData(json_encode($departments));;
     }
 
 

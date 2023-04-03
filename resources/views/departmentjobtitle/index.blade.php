@@ -3,112 +3,15 @@
 @section('content')
 
     <div class="row justify-content-center">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class='card-title'>DEPARTMENT JOB TITLE</h3>
-                    
-                    <span style='margin-left: auto;order: 2;' >
-                        <a href='{{url("/departmentjobtitle")}}' class='btn text-white bg-lime'>New Department Job<i class="fa fa-plus-circle" aria-hidden="true"></i> </a>
-                     </span> 
-                </div>
-                             
-           @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible" role="alert" style="margin:10px">
-                  <button type="button" class="close" data-dismiss="alert">&times;</button>
-                 <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-           
-            </ul>
-           </div>
-            @endif
 
-            @if (Session::has('success'))
-                   
-                    <div class="alert alert-success alert-dismissible" role="alert"  style="margin:10px">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                      <ul>
-                    <li>{{ Session::get('success') }}</li>
+    <div class="col-md-12 col-sm-12 col-xs-12" id="deptjobs" data="{{ $data }}" base_url="{{url('/')}}">
+            
+             <!--
+               reatctive content here
+              -->
+
                        
-                    </ul>
-                   </div>
-                @endif
-       
+    </div>
 
-
-                <div class="card-body">
-                  
-
-                   <div class='' style='display:flex'>
-                      
-                   <table class="table">
-    <thead class="thead-light">
-      <tr>                          
-        <th>Job Title</th>
-        <th>Department | Section </th> 
-        <th>Level Group</th>
-        <th>Grade</th>
-        <th>Reports To</th>       
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-
-   
-    @foreach ($departmentjobtitles as $departmentjobtitle) 
-       <tr>        
-        <td>{{$departmentjobtitle->jobtitle->jobtitlename}}</td>
-        <td>
-            
-
-           
-           @if($departmentjobtitle->department!=null)
-           {{$departmentjobtitle->department->departmentname}}          
-           @endif
-           |
-           @if($departmentjobtitle->section!=null)
-           {{$departmentjobtitle->section->sectionname}} 
-           @else   
-           {{$departmentjobtitle->department->section->sectionname}}      
-           @endif
-           
-          </td>
-        <td>{{"--"}}</td>
-        <td>{{$departmentjobtitle->grade->grade}}</td>
-        <td>
-
-          @isset($departmentjobtitle->supervisor->jobtitle)
-            {{$departmentjobtitle->supervisor->jobtitle->jobtitlename}}
-          @endisset
-        
-        @isset($departmentjobtitle->supervisor)
-        @isset($departmentjobtitle->supervisor->department)          
-           ({{$departmentjobtitle->supervisor->department->departmentname}}) 
-          @else   
-            
-          ({{$departmentjobtitle->supervisor->section->sectionname}})
-          @endisset
-        @endisset  
-        </td>
-        <td>
-          <a href="{{url('departmentjobtitle/')}}/{{$departmentjobtitle->id}}" class='text-lime bg-white'><i class="fa fa-pencil-square" style="font-size:14px" ></i></a> | <a href='#' class='text-red bg-white'><i class="fa fa-trash"  style="font-size:14px" aria-hidden="true"></i>
-        </a>
-       </td>
-       </tr>
-    @endforeach
-    
-     
-    </tbody>
-  </table>
-
-          </div>
-          </div>
-        </div>
-        </div>
-    
-</div>
-
-
+    </div>   
 @endsection

@@ -22,53 +22,41 @@ class DepartmentJobtitleController extends BaseController
 
         //dd($request);
 
-        $jobtitle_id = $request->input('jobtitle_id')!==null?intval($request->input('jobtitle_id')):-1;
-        $department_id = $request->input('department_id')!==null?intval($request->input('department_id')):-1;
-        $section_id =  $request->input('section_id')!==null?intval($request->input('section_id')):-1;
-        $level_id = $request->input('level_id')!==null?intval($request->input('level_id')):-1;
-        $isacademic = $request->input('isacademic_id')!==null?intval($request->input('isacademic_id')):-1;
+       
 
+        $query = $request->input('query')!==null?trim($request->input('query')):"";
+
+        //echo $query;
+        //return;
+
+    
+      $departmentjobtitles_result = DepartmentJobtitle::with(['jobtitle','section','department'=>function($department){$department->with('section')->get();},'supervisor'=>function($supervisor){$supervisor->with('jobtitle')->get();},'grade']);
         
+ 
+      if($request->has('query')){
 
-      $departmentjobtitles_result = DepartmentJobtitle::join('tbljobtitle','tbljobtitle.id','=','tbldepartmentjobtitle.jobtitle_id')->orderBy('tbljobtitle.jobtitlename','asc');
+         
+        $search = $request->input('query');
 
-        if($jobtitle_id !==-1){
-          $departmentjobtitles_result = $departmentjobtitles_result->where('jobtitle_id',$jobtitle_id);
-        }
-
-        if($department_id !==-1){
-          $departmentjobtitles_result = $departmentjobtitles_result->where('department_id',$department_id);
-        }
-
-        if($section_id !==-1){
-          $departmentjobtitles_result = $departmentjobtitles_result->where('section_id',$section_id);
-        }
-
-        if($level_id !==-1){
-
-          $departmentjobtitles_result = $departmentjobtitles_result->where('jobhierarchy_id',$level_id);
-        }
-
-        if($isacademic !==-1){
-
-          $departmentjobtitles_result = $departmentjobtitles_result->where('isacademic',$isacademic);
-        }
-
+        $departmentjobtitles_result = $departmentjobtitles_result->Wherehas('jobtitle',function ($q) use($search){
+             $q->where('jobtitlename','like','%'.$search.'%');
+        });
+      }
+      
         $departmentjobtitles = $departmentjobtitles_result->get();
 
-        //dd($departmentjobtitles);
+       
+         /*
+            return as json
+         */
+        if($request->has('query')){
 
-        $sections  = Section::orderBy('sectionname','asc')->get();
+          return response()->json([
+            'data' => json_encode($departmentjobtitles)
+        ], 201);
+        }
 
-        $departments  = Department::orderBy('departmentname','asc')->get();
-
-        $jobtitles = Jobtitle::orderBy('jobtitlename','asc')->get();
-
-        $grades = Employeegrade::orderBy('grade','asc')->get();
-
-        $levels = Jobhierarchy::orderBy('jobtitle_hierarchy','asc')->get();
-
-        return view('departmentjobtitle.index',compact('sections','departments','jobtitles','grades','levels','departmentjobtitles'));
+        return view('departmentjobtitle.index',compact('departmentjobtitles'))->withData(json_encode($departmentjobtitles));
     }
 
 

@@ -10,13 +10,32 @@ class SectionController extends BaseController
 {
     //
 
-    public function index(){
+    public function index(Request $request){
 
-          $sections = Section::orderBy('sectionname', 'asc')->get();
+      $query = $request->input('query')!==null?trim($request->input('query')):"";
 
-          //dd($sections);
 
-          return view('section.index',compact('sections'));
+      $section_results = Section::orderBy('sectionname','asc');
+
+      if($query!=""){
+
+         $section_results  =  $section_results->where('sectionname','like','%'.$query.'%');
+
+      }
+        
+      $sections = $section_results->get();
+
+       /*
+            return as json
+         */
+        if($request->has('query')){
+
+          return response()->json([
+            'data' => json_encode($sections)
+        ], 201);
+        }
+
+          return view('section.index',compact('sections'))->withData(json_encode($sections));
     }
 
 

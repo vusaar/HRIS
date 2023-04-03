@@ -10,11 +10,32 @@ class JobtitleController extends BaseController
 {
     //
 
-     public function index(){
-        
-         $jobtitles = Jobtitle::orderBy('id','asc')->get();
+     public function index(Request $request){
 
-          return view('jobtitle.index',compact('jobtitles'));
+      $query = $request->input('query')!==null?trim($request->input('query')):"";
+
+
+      $jobtitle_results = Jobtitle::orderBy('jobtitlename','asc');
+
+      if($query!=""){
+
+        $jobtitle_results  =  $jobtitle_results->where('jobtitlename','like','%'.$query.'%');
+
+      }
+        
+      $jobtitles = $jobtitle_results->get();
+
+       /*
+            return as json
+         */
+        if($request->has('query')){
+
+          return response()->json([
+            'data' => json_encode($jobtitles)
+        ], 201);
+        }
+
+          return view('jobtitle.index',compact('jobtitles'))->withData(json_encode($jobtitles));
           
      }
 
