@@ -18,6 +18,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function(){
 
+    Route::get('/employees', 'EmployeeController@index')->name('employees');
+
+    Route::get('/employee/{id?}', 'EmployeeController@showUpsertView')->name('employee');
+
     Route::get('/sections', 'SectionController@index')->name('sections');
     Route::get('/section/{id?}', 'SectionController@showUpsertView')->name('section');
     Route::post('/save_section', 'SectionController@doUpsert')->name('save_section');

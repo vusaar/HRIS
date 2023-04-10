@@ -22,9 +22,9 @@ class CreateTbldepartmentjobtitleTable extends Migration
             $table->unsignedBigInteger('jobtitle_id')->nullable(false);
             $table->string('isacademic')->nullable(true);                       
             $table->string('departmentjobtitlename')->nullable(true);
-            $table->unsignedBigInteger('supervisor');
+            $table->unsignedBigInteger('supervisor_id');
 
-            $table->foreign('supervisor')->references('id')->on('tbldepartmentjobtitle')->onUpdate('cascade')->onDelete('restrict');
+            $table->foreign('supervisor_id')->references('id')->on('tbldepartmentjobtitle')->onUpdate('cascade')->onDelete('restrict');
 
             $table->foreign('department_id')->references('id')->on('tbldepartment')->onUpdate('cascade')->onDelete('restrict');
 

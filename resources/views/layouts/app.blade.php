@@ -153,13 +153,13 @@
    <path d="M10 9.5c1.333 -1.333 2.667 -1.333 4 0"></path>
 </svg>  
                   </span>
-<span class="nav-link-title p-2"  style='color:#495057;font-weight:bolder'>Employees</span></a
-        >
+<span class="nav-link-title p-2"  style='color:#495057;font-weight:bolder'>Employees</span>
+</a>
 
         <ul id="employees" class="collapse show list-group list-group-flush px-3">
           
          <li class="list-group-item px-6">
-            <a href="" class="text-reset">Employment Details</a>
+            <a href="{{url('employees/')}}" class="text-reset">Employment Details</a>
           </li>
           <li class="list-group-item px-6">
             <a href="" class="text-reset">Leave Management</a>

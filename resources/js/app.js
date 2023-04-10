@@ -13,9 +13,12 @@ require('./bootstrap');
  */
 
 require('./components/Contract');
+
 require('./components/Jobtitle');
 require('./components/Department');
 require('./components/Section');
 require('./components/DepartmentJobtitle');
+
+require('./components/Employee');
 
 //import Contract from './components/Contract';

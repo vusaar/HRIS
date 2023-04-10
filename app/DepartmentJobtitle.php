@@ -34,4 +34,8 @@ class DepartmentJobtitle extends Model
     public function hierarchylevel(){
         return $this->hasOne(Jobhierarchy::class,'id','jobhierarchy_id');
     }
+
+    public function employmentdetail(){
+        return $this->hasOne(Employmentdetail::class,'departmentjobtitle_id','id');
+    }
 }

@@ -36,7 +36,7 @@ class DepartmentJobtitlesSeeder extends Seeder
             'section_id' => Section::where('sectionname','CEO OFFICE')->first()->id,
             'jobtitle_id' => Jobtitle::where('jobtitlename','Chief Executive Officer')->first()->id,
             'departmentjobtitlename' => '',
-            'supervisor_id' =>null
+            'supervisor_id' => 1
         ]);
 
 
